@@ -10,7 +10,7 @@ This is for educational purpose, as I'm trying to learn Nim in depth, and at the
 
 ## Roadmap
 
-- [ ] ⌛ [CHIP8](https://en.wikipedia.org/wiki/CHIP-8)
+- [x] [CHIP8](https://en.wikipedia.org/wiki/CHIP-8)
 - [ ] Game Boy
 - [ ] NES
 - [ ] Atari 2600

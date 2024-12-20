@@ -11,3 +11,4 @@ bin           = @["chip8"]
 # Dependencies
 
 requires "nim >= 2.2.0"
+requires "naylib >= 24.49.0"
