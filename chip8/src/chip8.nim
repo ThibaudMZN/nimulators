@@ -30,8 +30,8 @@ type
     memory*: array[MEMORY_SIZE, uint8]
     registers: array[16, uint8]
     I: uint16
-    pc: uint16
-    display: array[DISPLAY_WIDTH * DISPLAY_HEIGHT, bool]
+    pc*: uint16
+    display*: array[DISPLAY_WIDTH * DISPLAY_HEIGHT, bool]
     delayTimer: uint8
     soundTimer: uint8
     stack: array[16, uint16]
@@ -53,6 +53,20 @@ proc initChip8*(): Chip8 =
   )
   result.memory[0 ..< FONTSET.len] = FONTSET
 
+proc incrementPc*(chip8: var Chip8) = 
+  chip8.pc += 2
+
+proc executeOp*(chip8: var Chip8, opcode: uint16) =
+  case opcode shr 12:
+    of 0x0:
+      if opcode == 0x00E0:
+        chip8.display = default(array[DISPLAY_WIDTH * DISPLAY_HEIGHT, bool])
+        chip8.incrementPc()
+    of 0x1:
+      chip8.pc = opcode and 0x0FFF
+    else:
+      echo "Unknown opcode: ", $opcode
 
 proc cycle*(chip8: var Chip8) =
-    discard
+  var opcode = uint16(chip8.memory[chip8.pc] shl 8 or chip8.memory[chip8.pc + 1])
+  chip8.executeOp(opcode)
