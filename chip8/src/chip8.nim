@@ -40,7 +40,6 @@ type
     stackPointer*: uint16
     keypad*: array[16, bool]
     rng*: Rand
-    drawFlag*: bool
 
 proc initChip8*(): Chip8 =
   result = Chip8(
@@ -54,8 +53,7 @@ proc initChip8*(): Chip8 =
     stack: default(array[16, uint16]),
     stackPointer: 0,
     keypad: default(array[16, bool]),
-    rng: initRand(),
-    drawFlag: false
+    rng: initRand()
   )
   result.memory[0 ..< FONTSET.len] = FONTSET
 
@@ -69,13 +67,11 @@ proc `currentStack=`(chip8: var Chip8, stack: uint16) =
   chip8.stack[chip8.stackPointer] = stack
 
 proc executeOp*(chip8: var Chip8, opcode: uint16) =
-  chip8.drawFlag = false
   case opcode shr 12:
     of 0x0:
       if opcode == 0x00E0:
         chip8.display = default(array[DISPLAY_WIDTH * DISPLAY_HEIGHT, bool])
         chip8.incrementPc()
-        chip8.drawFlag = true
       elif opcode == 0x00EE:
         dec(chip8.stackPointer)
         chip8.pc = chip8.currentStack
@@ -181,7 +177,6 @@ proc executeOp*(chip8: var Chip8, opcode: uint16) =
                 chip8.registers[0x0F] = 1
           x += 1
         y += 1
-      chip8.drawFlag = true
       chip8.incrementPc()
     of 0xE:
       var x = (opcode and 0x0F00) shr 8
@@ -247,11 +242,6 @@ proc executeOp*(chip8: var Chip8, opcode: uint16) =
 proc cycle*(chip8: var Chip8) =
   var opcode = (uint16(chip8.memory[chip8.pc]) shl 8) or chip8.memory[chip8.pc + 1]
   chip8.executeOp(opcode)
-  if chip8.delayTimer > 0:
-    chip8.delayTimer -= 1
-
-  if chip8.soundTimer > 0:
-    chip8.soundTimer -= 1
 
 proc loadROM*(chip8: var Chip8, romPath: string) =
   if not fileExists(romPath):

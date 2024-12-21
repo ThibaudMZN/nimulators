@@ -213,7 +213,6 @@ suite "The Chip8 emulator":
         chip8.executeOp(0xD001)
         check(chip8.display[0] == true)
         check(chip8.registers[0x0F] == 0)
-        check(chip8.drawFlag == true)
         check(chip8.pc == 0x202)
 
         # Now if we execute the same command, we should "erase" the 0
