@@ -11,7 +11,7 @@ This is for educational purpose, as I'm trying to learn Nim in depth, and at the
 ## Roadmap
 
 - [x] [CHIP8](https://en.wikipedia.org/wiki/CHIP-8)
-- [ ] Game Boy
+- [ ] ⌛[Game Boy](https://en.wikipedia.org/wiki/Game_Boy)
 - [ ] NES
 - [ ] Atari 2600
 - [ ] Game Boy Advance
@@ -22,3 +22,8 @@ This is for educational purpose, as I'm trying to learn Nim in depth, and at the
 - https://multigesture.net/articles/how-to-write-an-emulator-chip-8-interpreter/
 - https://github.com/kripod/chip8-roms/tree/master
 - https://github.com/corax89/chip8-test-rom
+
+#### GameBoy
+- https://bgb.bircd.org/pandocs.htm
+- https://imrannazar.com/GameBoy-Emulation-in-JavaScript
+- http://www.codeslinger.co.uk/pages/projects/gameboy.html

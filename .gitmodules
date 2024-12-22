@@ -1,3 +1,6 @@
 [submodule "chip8/chip8-roms"]
 	path = chip8/chip8-roms
 	url = https://github.com/kripod/chip8-roms
+[submodule "gameboy/gb-test-roms"]
+	path = gameboy/gb-test-roms
+	url = https://github.com/retrio/gb-test-roms

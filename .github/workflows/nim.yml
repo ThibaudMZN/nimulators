@@ -12,3 +12,5 @@ jobs:
         repo-token: ${{ secrets.GITHUB_TOKEN }}
     - working-directory: ./chip8
       run: nimble test
+    - working-directory: ./gameboy
+      run: nimble test
