@@ -1,48 +1,7 @@
 import mmu
+import registers
 import strutils
 import opcodes
-
-type 
-  Registers = object
-    AF: uint16
-    BC: uint16
-    DE: uint16
-    HL: uint16
-
-proc initRegisters(): Registers =
-  Registers(
-    AF: 0x01B0,
-    BC: 0x0013,
-    DE: 0x00D8,
-    HL: 0x014D
-  )
-
-proc A(regs: Registers): uint8 =
-  uint8((regs.AF and 0xFF00) shr 8)
-
-proc B(regs: Registers): uint8 =
-  uint8((regs.BC and 0xFF00) shr 8)
-
-proc D(regs: Registers): uint8 =
-  uint8((regs.DE and 0xFF00) shr 8)
-
-proc H(regs: Registers): uint8 =
-  uint8((regs.HL and 0xFF00) shr 8)
-
-proc `A=`(regs: var Registers, val: uint8) =
-  regs.AF = (0x00FF and regs.AF) and (uint16(val) shl 8)
-
-proc F(regs: Registers): uint8 =
-  uint8(regs.AF and 0x00FF)
-
-proc C(regs: Registers): uint8 =
-  uint8(regs.BC and 0x00FF)
-
-proc E(regs: Registers): uint8 =
-  uint8(regs.DE and 0x00FF)
-
-proc L(regs: Registers): uint8 =
-  uint8(regs.HL and 0x00FF)
 
 type
   CPU* = object
@@ -100,22 +59,8 @@ proc executeOp(cpu: var CPU, opcode: Opcode) =
       case opcode.operandTwo:
         of "D16":
           src = cpu.a16
-        of "A":
-          src = cpu.regs.A
-        of "B":
-          src = cpu.regs.B
-        of "C":
-          src = cpu.regs.C
-        of "D":
-          src = cpu.regs.D
-        of "E":
-          src = cpu.regs.E
-        of "F":
-          src = cpu.regs.F
-        of "H":
-          src = cpu.regs.H
-        of "L":
-          src = cpu.regs.L
+        of "A", "B", "C", "D", "E", "H", "L":
+          src = cpu.regs[opcode.operandTwo]
         of "D8":
           src = cpu.d8
         of "(HL+)":
