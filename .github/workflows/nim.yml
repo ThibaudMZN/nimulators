@@ -11,6 +11,8 @@ jobs:
         nim-version: '2.2.0'
         repo-token: ${{ secrets.GITHUB_TOKEN }}
     - working-directory: ./chip8
+      name: "Testing CHIP8 emulator"
       run: nimble test
     - working-directory: ./gameboy
+      name: "Testing GameBoy emulator"
       run: nimble test
