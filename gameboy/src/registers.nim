@@ -65,7 +65,7 @@ proc `[]=`*(regs: var Registers, idx: string, val: uint8) =
     else:
       raise newException(IndexDefect, "No register $1 found" % [idx])
 
-proc F(regs: Registers): uint8 =
+proc F*(regs: Registers): uint8 =
  regs.AF.lo
 
 proc `F=`(regs: var Registers, val: uint8) =
