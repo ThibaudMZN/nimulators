@@ -6,10 +6,12 @@ const
 type
   Memory* = object
     memory*: array[MEMORY_SIZE, uint8]
+    debugSerialPort: string
 
 proc initMemory*(): Memory =
   Memory(
-    memory: default(array[MEMORY_SIZE, uint8])
+    memory: default(array[MEMORY_SIZE, uint8]),
+    debugSerialPort: ""
   )
 
 proc read8*(m: Memory, address: uint16): uint8 =
@@ -30,3 +32,10 @@ proc loadROM*(m: var Memory, romPath: string) =
     raise newException(IOError, "ROM file not found!")
   let romData = readFile(romPath)
   m.memory[0 ..< romData.len] = cast[seq[byte]](romData)
+
+proc debugSerialPort*(m: var Memory) =
+  if m.memory[0xFF02] == 0x81:
+    let serialChar = char(m.memory[0xFF01])
+    m.debugSerialPort &= serialChar
+    echo "SERIAL PORT OUTPUT:\t", m.debugSerialPort
+    m.write8(0xFF02, 0)  # Clear the control register

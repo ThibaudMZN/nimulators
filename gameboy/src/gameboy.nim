@@ -2,7 +2,7 @@ import mmu, cpu
 
 type
   GameBoy* = object
-    mem: Memory
+    mem*: Memory
     cpu: CPU
 
 proc initGameBoy*(): GameBoy =
