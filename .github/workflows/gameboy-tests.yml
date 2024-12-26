@@ -1,8 +1,8 @@
-name: Testing Nim files
+name: GameBoy Tests
 on: [push]
 
 jobs:
-  Check-Nim:
+  GameBoy-Tests:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
@@ -10,9 +10,6 @@ jobs:
       with:
         nim-version: '2.2.0'
         repo-token: ${{ secrets.GITHUB_TOKEN }}
-    - working-directory: ./chip8
-      name: "Testing CHIP8 emulator"
-      run: nimble test
     - working-directory: ./gameboy
       name: "Testing GameBoy emulator"
       run: nimble test

@@ -1,6 +1,8 @@
 # Console emulators in Nim
 
-![example workflow](https://github.com/ThibaudMZN/nimulators/actions/workflows/nim.yml/badge.svg
+![Chip8 tests workflow](https://github.com/ThibaudMZN/nimulators/actions/workflows/chip8-tests.yml/badge.svg
+)
+![GameBoy tests workflow](https://github.com/ThibaudMZN/nimulators/actions/workflows/gameboy-tests.yml/badge.svg
 )
 
 

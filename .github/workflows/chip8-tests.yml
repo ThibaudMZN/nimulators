@@ -1,0 +1,15 @@
+name: CHIP 8 Tests
+on: [push]
+
+jobs:
+  CHIP8-Tests:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - uses: jiro4989/setup-nim-action@v2
+      with:
+        nim-version: '2.2.0'
+        repo-token: ${{ secrets.GITHUB_TOKEN }}
+    - working-directory: ./chip8
+      name: "Testing CHIP8 emulator"
+      run: nimble test
