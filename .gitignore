@@ -2,3 +2,6 @@
 *.o
 *.gba
 .vscode
+
+# GameBoy Testing
+gameboy/tests/BlarggExpectedOutput

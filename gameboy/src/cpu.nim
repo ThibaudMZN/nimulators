@@ -512,8 +512,7 @@ proc executeOp(cpu: var CPU, opcode: Opcode) =
       cpu.regs[if operandTwoIsTarget: prefixOpcode.operandTwo else: prefixOpcode.operandOne] = src
       cpu.pc.inc(prefixOpcode.len - 1)
     else:
-      echo "Unknown mnemonic: ", opcode.mnemonic
-      quit()
+      raise newException(ValueError, "Unknown mnemonic: " & opcode.mnemonic)
 
   if not skipInc:
     cpu.pc.inc(opcode.len)

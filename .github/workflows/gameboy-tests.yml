@@ -6,10 +6,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+        submodules: recursive
     - uses: jiro4989/setup-nim-action@v2
       with:
         nim-version: '2.2.0'
         repo-token: ${{ secrets.GITHUB_TOKEN }}
+    - working-directory: ./gameboy/tests
+      name: "Extracting expected tests output"
+      run: mkdir BlarggExpectedOutput && unzip ./Gameboy-logs/Blargg1LYStubbed.zip -d BlarggExpectedOutput/Blargg1LYStubbed
     - working-directory: ./gameboy
       name: "Testing GameBoy emulator"
       run: nimble test
